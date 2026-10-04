@@ -242,6 +242,21 @@ footer h2{font-size:clamp(22px,3.6vw,30px);text-align:center;margin-bottom:26px}
 .foot-bottom{margin-top:44px;text-align:center;color:var(--mut);font-size:14px}
 .foot-bottom a.logo{justify-content:center;margin-bottom:14px;font-size:28px}
 
+
+/* TOP BUTTON */
+#toTop{
+  position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:450;
+  width:52px;height:52px;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+  background:rgba(0,0,0,.78);color:var(--c);border:2px solid var(--c);
+  box-shadow:0 0 18px rgba(0,229,255,.55),inset 0 0 12px rgba(0,229,255,.18);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transform:translateY(14px) scale(.9);
+  transition:opacity .3s,transform .3s,visibility .3s,background .2s,box-shadow .2s;
+}
+#toTop.show{opacity:1;visibility:visible;transform:none}
+#toTop:hover{background:var(--c);color:#001014;box-shadow:0 0 30px rgba(0,229,255,.85)}
+#toTop svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
@@ -500,11 +515,12 @@ footer h2{font-size:clamp(22px,3.6vw,30px);text-align:center;margin-bottom:26px}
     </ul>
     <div class="foot-bottom">
       <a href="#home" class="logo" id="logo2"><span>I<b>Node</b></span></a>
-      <p>© 2026 INode – Ray D · Rete Mesh del Futuro</p>
+      <p>© 2025 INode – Ferdinando De Martino · Rete Mesh del Futuro</p>
       <p>Tecnologia eco-sostenibile per un futuro connesso.</p>
     </div>
   </div>
 </footer>
+<button id="toTop" type="button" aria-label="Torna in alto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 </div>
 
 <script>
@@ -567,6 +583,13 @@ footer h2{font-size:clamp(22px,3.6vw,30px);text-align:center;margin-bottom:26px}
       window.scrollTo({top:0,behavior:reduce?"auto":"smooth"});
     });
   });
+
+
+  /* pulsante torna su */
+  var toTop=document.getElementById("toTop");
+  toTop.addEventListener("click",function(){window.scrollTo({top:0,behavior:reduce?"auto":"smooth"})});
+  function topVis(){toTop.classList.toggle("show",window.scrollY>500)}
+  window.addEventListener("scroll",topVis,{passive:true}); topVis();
 
   /* barra di progresso */
   var bar=document.getElementById("bar"), ticking=false;
